@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.CodeAnalysis.Scripting.Hosting;
 using System;
 using System.Threading.Tasks;
 
@@ -17,13 +18,16 @@ namespace CustomReferenceResolverDemo
             var options = ScriptOptions
                 .Default
                 .WithMetadataResolver(new CustomMetadataReferenceResolver())
-                .WithSourceResolver(new CustomSourceReferenceResolver());
+                .WithSourceResolver(new CustomSourceReferenceResolver())
+                .WithFilePath(Environment.CurrentDirectory);
 
             var code =
 @"
 #r ""MathNet.Numerics.dll""
 #r ""SharpGL.dll""
-                
+
+#load ""WelcomeScript.csx""
+
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 
@@ -38,13 +42,14 @@ Vector<double>[] nullspace = A.Kernel();
 (A * (2*nullspace[0] - 3*nullspace[1]))
 ";
 
-            Console.WriteLine($"Run Script:{Environment.NewLine}{code}");
+            Console.WriteLine($"==> This is the script:{Environment.NewLine}{code}{Environment.NewLine}==> The script runs now...{Environment.NewLine}");
 
             var script = CSharpScript.Create(code: code, options: options);
             var scriptState = await script.RunAsync();
 
-            Console.WriteLine($"{Environment.NewLine}Result of Script:{Environment.NewLine}");
+            Console.WriteLine();
             Console.WriteLine(scriptState.ReturnValue.ToString());
+            Console.WriteLine($"{Environment.NewLine}Press any key to close window...");
             Console.ReadKey();
         }
     }

@@ -29,16 +29,14 @@ namespace CustomReferenceResolverDemo
         }
 
         public override PortableExecutableReference ResolveMissingAssembly(MetadataReference definition, AssemblyIdentity referenceIdentity)
-        {
+        {            
             return base.ResolveMissingAssembly(definition, referenceIdentity);
         }
 
         public override ImmutableArray<PortableExecutableReference> ResolveReference(string reference, string baseFilePath, MetadataReferenceProperties properties)
         {
-            var referencedLibraries = reference.Substring(reference.IndexOf(":") + 1).Split(',');
-            var path = Path.Combine(Environment.CurrentDirectory, "SharedLibraries");
+            var path = Path.Combine(baseFilePath, "SharedLibraries");
             var files = Directory.GetFiles(path);
-
             var filePath = files.FirstOrDefault(file => file == Path.Combine(path, reference));
             var metadataReference = MetadataReference.CreateFromFile(filePath);
 

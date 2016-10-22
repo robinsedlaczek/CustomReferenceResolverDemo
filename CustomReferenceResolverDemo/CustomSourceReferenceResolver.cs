@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.CodeAnalysis;
+using System.Linq;
 
 namespace CustomReferenceResolverDemo
 {
@@ -23,12 +24,18 @@ namespace CustomReferenceResolverDemo
 
         public override Stream OpenRead(string resolvedPath)
         {
-            throw new NotImplementedException();
+            var stream = File.OpenRead(resolvedPath);
+
+            return stream;
         }
 
         public override string ResolveReference(string path, string baseFilePath)
         {
-            throw new NotImplementedException();
+            var scriptsFolder = Path.Combine(baseFilePath, "Scripts");
+            var files = Directory.GetFiles(scriptsFolder);
+            var scriptFilePath = files.FirstOrDefault(file => file == Path.Combine(scriptsFolder, path));
+
+            return scriptFilePath;
         }
     }
 }

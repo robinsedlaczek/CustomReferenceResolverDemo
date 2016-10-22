@@ -144,6 +144,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Scripts\WelcomeScript.csx" />
     <None Include="SharedLibraries\MathNet.Numerics.dll" />
     <None Include="SharedLibraries\MathNet.Numerics.xml" />
     <None Include="SharedLibraries\SharpGL.dll" />
@@ -151,7 +152,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(ProjectDir)SharedLibraries\*.*" "$(TargetDir)SharedLibraries\" /E /Y</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(ProjectDir)SharedLibraries\*.*" "$(TargetDir)SharedLibraries\" /E /Y
+XCOPY "$(ProjectDir)Scripts\*.*" "$(TargetDir)Scripts\" /E /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
