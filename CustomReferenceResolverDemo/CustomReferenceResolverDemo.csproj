@@ -130,6 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessModels\SomeBusinessModel.cs" />
     <Compile Include="CustomMetadataReferenceResolver.cs" />
     <Compile Include="CustomSourceReferenceResolver.cs" />
     <Compile Include="Program.cs" />
@@ -147,8 +148,6 @@
     <None Include="Scripts\WelcomeScript.csx" />
     <None Include="SharedLibraries\MathNet.Numerics.dll" />
     <None Include="SharedLibraries\MathNet.Numerics.xml" />
-    <None Include="SharedLibraries\SharpGL.dll" />
-    <None Include="SharedLibraries\SharpGL.SceneGraph.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
