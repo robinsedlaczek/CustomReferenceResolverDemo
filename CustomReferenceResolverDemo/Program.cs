@@ -1,5 +1,4 @@
-﻿using CustomReferenceResolverDemo.BusinessModels;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -67,7 +66,7 @@ Console.WriteLine();
                 .WithSourceResolver(new CustomSourceReferenceResolver())
                 .WithFilePath(Environment.CurrentDirectory);
 
-            var script = CSharpScript.Create(code: code, options: options, assemblyLoader: loader);
+            var script = CSharpScript.Create(code, options, null, loader);
             var scriptState = await script.RunAsync();
 
             Console.WriteLine("#########################################################################################");
